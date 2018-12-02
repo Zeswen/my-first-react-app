@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import PokemonSlot from './components/PokemonSlot'
+import PokemonSlot from './components/PokemonSlot';
 import { AppWrapper, StyledInput } from './App.styled';
-import { getPokemonUrl } from './utils/requests'
+import { getPokemonUrl } from './utils/requests';
+
 class App extends Component {
   state = {
-		pokemonIndex: 1,
+	    pokemonIndex: 1,
 		myPokemon: {},
 		isShiny: false
   }
@@ -35,17 +36,15 @@ class App extends Component {
 		})
 	}
 
-
-  fetchNewPokemon() {
-    axios.get(getPokemonUrl(this.state.pokemonIndex))
-      .then(({ data }) => {
+    fetchNewPokemon() {
+        axios.get(getPokemonUrl(this.state.pokemonIndex))
+            .then(({ data }) => {
 				const { name, sprites } = data; 
-
 				this.setState({
 					myPokemon: {
-							name,
-							spriteUrl: this.state.isShiny ? sprites.front_shiny : sprites.front_default
-						}
+						name,
+						spriteUrl: this.state.isShiny ? sprites.front_shiny : sprites.front_default
+					}
 				});
 			})
 			.catch(e => console.log(e));
@@ -69,7 +68,6 @@ class App extends Component {
 					onChange={this.handleOnCheck}
 					/>
 				</div>
-
 				<PokemonSlot
 					name={this.state.myPokemon.name}
 					spriteUrl={this.state.myPokemon.spriteUrl}
